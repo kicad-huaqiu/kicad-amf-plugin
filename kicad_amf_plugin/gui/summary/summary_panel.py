@@ -5,7 +5,7 @@ from kicad_amf_plugin.icon import GetImagePath
 import wx
 from .order_summary_model import OrderSummaryModel
 from .price_summary_model import PriceSummaryModel
-
+from kicad_nextpcb_new.mainwindow import NextPCBTools
 
 import wx.dataview as dv
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
@@ -28,8 +28,10 @@ class SummaryPanel(UiSummaryPanel):
         super().__init__(*args, **kw)
 
         self.init_ui()
+        # self.next_pcb_tools = NextPCBTools()
         self.btn_update_price.Bind(wx.EVT_BUTTON, self.on_update_price_clicked)
         self.btn_place_order.Bind(wx.EVT_BUTTON, self.on_place_order_clicked)
+        self.btn_BOM_match.Bind(wx.EVT_BUTTON, self.on_bom_match)
         self.choice_order_region.Bind(wx.EVT_CHOICE, self.on_region_changed)
         self.Bind(
             wx.EVT_SPLITTER_SASH_POS_CHANGED,
@@ -121,6 +123,9 @@ class SummaryPanel(UiSummaryPanel):
     def on_place_order_clicked(self, ev):
         evt = PlaceOrder(id=-1)
         wx.PostEvent(self.Parent, evt)
+
+    def on_bom_match(self, e):
+        NextPCBTools(self).ShowModal()
 
     def on_sash_changed(self, evt):
         sash_pos = evt.GetSashPosition()
