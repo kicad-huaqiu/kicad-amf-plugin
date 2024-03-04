@@ -32,9 +32,10 @@ from pcbnew import (
     In3_Cu,
     In4_Cu,
     ToMM,
+    DRILL_MARKS_NO_DRILL_SHAPE,
 )
 
-from .helpers import get_exclude_from_pos, get_footprint_by_ref, get_smd, is_nightly
+from .helpers import get_exclude_from_pos, get_footprint_by_ref, get_smd
 
 
 class FabricationDataGenerator:
@@ -112,12 +113,7 @@ class FabricationDataGenerator:
 
         popt.SetDisableGerberMacros(False)
 
-        if is_nightly(GetBuildVersion()):
-            from pcbnew import DRILL_MARKS_NO_DRILL_SHAPE
-
-            popt.SetDrillMarksType(DRILL_MARKS_NO_DRILL_SHAPE)
-        else:
-            popt.SetDrillMarksType(PCB_PLOT_PARAMS.NO_DRILL_SHAPE)
+        popt.SetDrillMarksType(DRILL_MARKS_NO_DRILL_SHAPE)
 
         popt.SetPlotFrameRef(False)
 

@@ -76,7 +76,7 @@ class _SettingManager(wx.EvtHandler):
         try:
             now = int(now)
         except ValueError:
-            # 处理 'now' 不是有效整数的情况
+            #  Handles when 'now' isn't a valid integer
             return
         if old == now:
             return
