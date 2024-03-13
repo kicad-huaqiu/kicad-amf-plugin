@@ -71,8 +71,14 @@ class _SettingManager(wx.EvtHandler):
     def register_app(self, app: wx.App):
         self.app = app
 
+
     def set_language(self, now: int):
-        old = self.get_language
+        old = self.get_language()
+        try:
+            now = int(now)
+        except ValueError:
+            # 处理 'now' 不是有效整数的情况
+            return
         if old == now:
             return
         self.app_conf.WriteInt(key=LANGUAGE, value=now)
@@ -98,6 +104,8 @@ class _SettingManager(wx.EvtHandler):
 
     @property
     def order_region(self):
+        # order_region_value = self.app_conf.ReadInt(ORDER_REGION)
+        # print(f"Order Region: {order_region_value}")
         return self.app_conf.ReadInt(ORDER_REGION)
 
     def get_price_unit(self, translated=False):
